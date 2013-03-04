@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TwinkedIn</title>
+    
+    <!-- external CSS files -->
+    <link href="../static/bootstrap/css/bootstrap.css" rel="stylesheet"> 
+    <link href="../static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="https://s.mzstatic.com/htmlResources/1AB7/web-storefront-preview.css" /> 
+    <link rel="stylesheet" type="text/css" media="screen" href="../static/bootstrap/css/panelOverride.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="../static/bootstrap/css/style2.css"/>
+  
+    <style id="sliderBarWidth" type="text/css">
+      #main #content div.center-stack div.screenshots div.content>div{position:relative;zoom:1;width:{{scrollingAreaWidth}}px;} /* */
+    </style>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38844715-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+    <!-- Javascript code -->
+    <script type="text/javascript">
+          var totalNrOfTables = {{totalNrOfTables}};          
+    </script>
+
+    <script type="text/javascript">
+
+        function myFunction_forward(item) {
+
+          var buttonNr = ($(item).attr('id')).slice(8,12);
+          //console.log(buttonNr)
+
+          /* get current first name, full name, and twitter handle) */
+          var currentFirstName = document.getElementById("buttonFirstName" + buttonNr).innerHTML;
+          var currentFullName = document.getElementById("slot" + buttonNr).innerHTML;
+          var currentTwitterHandle = document.getElementById('twitImg_slot' + buttonNr).title;
+          
+          currentTwitterHandle = currentTwitterHandle.slice(1,currentTwitterHandle.length);
+
+          /* load in rejections */
+          if (rejected_TwitterHandles.length == 0)
+          {
+            /* read all of the contacts currently listed */
+            var temp = [];
+            totalNrOfImages=24 //{{jinjaTotalNrOfImages}} 
+            //console.log('Total number of images: ' + totalNrOfImages)
+            for( var counter = 1; counter < (totalNrOfImages+1); counter ++) {
+                temp = document.getElementById( ('twitImg_slot' + counter) ).title;   // get element
+                temp = temp.slice(1,temp.length);    // slice out Twitter handle
+                rejected_TwitterHandles.push(temp) // now push all of the contacts onto the rejected stack 
+              }
+
+          }
+          else {
+          
+            //console.log('Current Twitter handle: ' + currentTwitterHandle)
+            //console.log(rejected_TwitterHandles)
+            //console.log(rejected_TwitterHandles.indexOf(currentTwitterHandle))
+
+            /* add rejections  if not already in there */
+            if (rejected_TwitterHandles.indexOf(currentTwitterHandle) == -1) {
+              rejected_TwitterHandles.push(currentTwitterHandle)  
+            }
+          } 
+
+
+
+          /* select new person with same name */
+          //console.log(currentFirstName)
+          //console.log(currentFullName)
+          //console.log(currentTwitterHandle)
+          newFirstName = currentFirstName;
+          newFullName = currentFullName;
+          currentIndex = matchDict[currentFullName].indexOf(currentTwitterHandle);
+          if (matchDict[currentFullName].length == 1) {
+             var currentText = document.getElementById("buttonNr" + buttonNr).innerHTML;
+             if (currentText.slice(0,4) == "Only") {
+                //console.log(currentText)
+                newFirstName = newFullName.match(/\w+/)
+                document.getElementById("allTextUnderNeathImage" + buttonNr).innerHTML = '<span><a id="buttonNr' + buttonNr + '" class = "textButton" onClick="myFunction_forward(this);" style="text-align: center;">Different <span id="buttonFirstName' + buttonNr + '">' + newFirstName + '</span>?</span></a></span>'
+             }
+             else {
+                document.getElementById("allTextUnderNeathImage" + buttonNr).innerHTML = '<span><a id="buttonNr' + buttonNr + '" class = "textButton" onClick="myFunction_forward(this);" style="text-align: center;">Only 1 ' + newFullName + ' found.<span id="buttonFirstName' + buttonNr + '"> </span></a></span>'
+              }
+             return;
+          }
+
+          /*if (currentIndex == (matchDict[currentFullName].length - 1) ) {
+             var currentText = document.getElementById("buttonNr" + buttonNr).innerHTML;
+             if (currentText.slice(0,4) == "Last") {
+                console.log(currentText)
+                newFirstName = newFullName.match(/\w+/)
+                document.getElementById("allTextUnderNeathImage" + buttonNr).innerHTML = '<span><a id="buttonNr' + buttonNr + '" class = "textButton" onClick="myFunction_forward(this);" style="text-align: center;">Different <span id="buttonFirstName' + buttonNr + '">' + newFirstName + '</span>?</span></a></span>'
+             }
+             else {
+                document.getElementById("allTextUnderNeathImage" + buttonNr).innerHTML = '<span><a id="buttonNr' + buttonNr + '" class = "textButton" onClick="myFunction_forward(this);" style="text-align: center;">Last ' + newFullName + ' found.<span id="buttonFirstName' + buttonNr + '"> </span></a><span style="font-size: 6pt;"> | </span><span><a id="buttonNrb' + buttonNr + '" class = "textButton" onClick="myFunction_undo(this);" style="text-align: center;">undo</a></span></span>'
+              }
+              return;
+          }*/
+
+
+          if (currentIndex < (matchDict[currentFullName].length - 1) ) {
+              newTwitterHandle = matchDict[currentFullName][currentIndex+1];
+          }
+          else {
+              newTwitterHandle = currentTwitterHandle;
+              return;
+          }
+          //console.log(newFirstName)
+          //console.log(newFullName)
+          //console.log(newTwitterHandle)
+          
+          /* update image */
+          document.getElementById('twitImg_slot' + buttonNr).src="https://api.twitter.com/1/users/profile_image?screen_name="+ newTwitterHandle +"&size=original"
+          document.getElementById('twitImg_slot' + buttonNr).title="@"+ newTwitterHandle 
+
+          /* update caption and buttons */
+          document.getElementById("slot" + buttonNr).innerHTML = newFullName
+          document.getElementById("buttonFirstName" + buttonNr).innerHTML = newFirstName
+          document.getElementById("printUndoTextButton" + buttonNr).innerHTML = '<span style="font-size: 6pt;"> | </span><span><a id="buttonNrb' + buttonNr + '" class = "textButton" onClick="myFunction_undo(this);" style="text-align: center;">undo</a></span>'
+
+
+
+          //document.getElementById("twitterButton" + buttonNr).src = "//platform.twitter.com/widgets/follow_button.html?show_count=false&screen_name=" + newTwitterHandle 
+          document.getElementById("twitterButton" + buttonNr).innerHTML = '<a href="https://twitter.com/' + newTwitterHandle + '" class="twitter-follow-button" data-show-count="false" data-size="small">Follow @' + newTwitterHandle + '</a>'
+
+
+       // draw the twitter button(s)  
+       var myfunc = function(d,s,id){
+        //console.log("In Updating function")
+        var js,fjs=d.getElementsByTagName(s)[0];
+          js=d.createElement(s);
+          js.id=id;
+          //console.log("Got Element By Id");
+          js.src="//platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js,fjs);
+        };
+        myfunc(document,"script","twitter-wjs");
+     
+
+
+          /* add itself to the list of rejected candidates (if not already on the stack - which happens when switching between pictures */
+          //rejected_TwitterHandles.push(newTwitterHandle)
+        
+        };
+
+        function myFunction_undo(item) {
+
+          var buttonNr = ($(item).attr('id')).slice(9,13);
+          //console.log(buttonNr)
+
+          /* get current first name, full name, and twitter handle) */
+          var currentFirstName = document.getElementById("buttonFirstName" + buttonNr).innerHTML;
+          var currentFullName = document.getElementById("slot" + buttonNr).innerHTML;
+          var currentTwitterHandle = document.getElementById('twitImg_slot' + buttonNr).title;
+          
+          currentTwitterHandle = currentTwitterHandle.slice(1,currentTwitterHandle.length);
+
+          /* pop last rejection */
+          rejected_TwitterHandles.pop(currentTwitterHandle)  
+          
+          /* select new person with same name */
+          //console.log(currentFirstName)
+          //console.log(currentFullName)
+          //console.log(currentTwitterHandle)
+          newFirstName = currentFirstName;
+          newFullName = currentFullName;
+          currentIndex = matchDict[currentFullName].indexOf(currentTwitterHandle);
+
+          if (currentIndex >0 ) {
+              newTwitterHandle = matchDict[currentFullName][currentIndex-1];
+              if (currentIndex == 1) {
+                 document.getElementById("printUndoTextButton" + buttonNr).innerHTML = ''
+              }
+          }
+          else {
+              newTwitterHandle = currentTwitterHandle;
+              return;
+          }
+          //console.log(newFirstName)
+          //console.log(newFullName)
+          //console.log(newTwitterHandle)
+          
+          /* update image */
+          document.getElementById('twitImg_slot' + buttonNr).src="https://api.twitter.com/1/users/profile_image?screen_name="+ newTwitterHandle +"&size=original"
+          document.getElementById('twitImg_slot' + buttonNr).title="@"+ newTwitterHandle 
+
+          /* update caption and buttons */
+          document.getElementById("slot" + buttonNr).innerHTML = newFullName
+          document.getElementById("buttonFirstName" + buttonNr).innerHTML = newFirstName
+          //document.getElementById("twitterButton" + buttonNr).src = "//platform.twitter.com/widgets/follow_button.html?show_count=false&screen_name=" + newTwitterHandle 
+
+          document.getElementById("twitterButton" + buttonNr).innerHTML = '<a href="https://twitter.com/' + newTwitterHandle + '" class="twitter-follow-button" data-show-count="false" data-size="small">Follow @' + newTwitterHandle + '</a>'
+
+
+         
+       var myfunc = function(d,s,id){
+        //console.log("In Updating function")
+        var js,fjs=d.getElementsByTagName(s)[0];
+          js=d.createElement(s);
+          js.id=id;
+          //console.log("Got Element By Id");
+          js.src="//platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js,fjs);
+        };
+        myfunc(document,"script","twitter-wjs");
+     
+
+        };
+
+        function myFunction_printMoreTables(item) {
+            document.getElementById('printMoreTablesHere').innerHTML = ' '
+            var scrollingAreaWidth = 660*totalNrOfTables;
+            document.getElementById('sliderBarWidth').innerHTML = '#main #content div.center-stack div.screenshots div.content>div{position:relative;zoom:1;width:' + scrollingAreaWidth + 'px;}'
+            document.getElementById('commentedOutTables').innerHTML = document.getElementById('commentedOutTables').innerHTML.slice(4,-3)
+        
+          // draw the twitter button(s)  
+       var myfunc = function(d,s,id){
+        //console.log("In Updating function")
+        var js,fjs=d.getElementsByTagName(s)[0];
+          js=d.createElement(s);
+          js.id=id;
+          //console.log("Got Element By Id");
+          js.src="//platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js,fjs);
+        };
+        myfunc(document,"script","twitter-wjs");
+     
+        };
+        
+
+    </script> 
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../static/bootstrap/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../static/bootstrap/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../static/bootstrap/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../static/bootstrap/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../static/bootstrap/ico/favicon.png">
+  </head>
+
+  <body style = "background-color: #333;">
+
+    <!-- Twitter Bootstrap code -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">TwinkedIn</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="/contacts">Contacts</a></li>
+              <li><a href="/visualize">Visualize network</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!--<h1>TwinkedIn</h1>
+      <p>Discover what your LinkedIn connections are saying on Twitter.</p>
+      <!--<span ALIGN="right" id="underscoreSpace"> ____________________________________________________________________</span><span id="totalTimeSaved">Total lookup time saved: 2 hours</span>-->-->
+
+
+   <!-- Image tables -->
+    <div id="main">
+      <div id="content">
+        <div class="padder">
+           <div id="slideBarDiv1" class="center-stack">
+              <div id="slideBarDiv2" metrics-loc="Swoosh_" rows="1" class="swoosh lockup-container application large screenshots">
+                <div class="title">
+                   <h2 style="color:white; font: 15px/30px Helvetica, sans-serif;">Your contacts on Twitter:</h2>
+                </div>
+
+                <div id="slideBarDiv3" class="toggle">
+                   <div id="slideBarDiv4" metrics-loc="iPad" num-items="1" class="content ipad-screen-shots">
+                      <div>
+                          {{jinjaString}}
+                          
+                          <span id="printMoreTablesHere"> 
+                          <div style="color:#333;font-size:1px">.</div>
+                          <div id="moreButtonPadder"> </div>
+                          <a id="moreButton" class = "textButton" onClick="myFunction_printMoreTables(this);" style="text-align: center; vertical-align:bottom;">Show all...</a>
+                          </span>
+                          
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+          
+    <p style="margin-top:-40px; padding-left:245px; color:white; font: 11px Helvetica, sans-serif !important;">[This is a demo version for Dominique Van de Sompel's contacts. Twitter API rate limits currently prevent the app from being run in real-time.]</p>
+    
+    <!-- More Javascript code (Placed at the end of the document so the pages load faster) -->
+    <script src="../static/bootstrap/js/jquery.js"></script>    
+    <script type="text/javascript">
+
+      /* use ajax to get matchDict from the server */
+      $.ajax({ url:' /api/getMatchDict/', type:"POST", data: JSON.stringify('hello'), 
+          contentType:"application/json; charset=utf-8", dataType:"json", 
+          success: function(data){ 
+            matchDict = data;
+          }
+        });
+
+      var rejected_TwitterHandles = new Array();
+    </script>
+
+    <!-- <script src="../static/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-button.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="../static/bootstrap/js/bootstrap-typeahead.js"></script>  -->
+
+  </body>
+
+</html>

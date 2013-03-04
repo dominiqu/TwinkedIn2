@@ -1,0 +1,256 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/* example from http://designshack.net/articles/css/5-cool-css-hover-effects-you-can-copy-and-paste/ */
+
+/*Example 5*/
+#containerEx5 {
+	background: #333;
+	padding: 30px;
+	margin-top: 10px;
+}
+
+#ex5firstrow {
+	width: 700px;
+	margin: 0 auto;
+	min-height: 300px;
+}
+
+#ex5firstrow img {
+	margin: 10px 25px 10px 25px;
+	opacity: 0.8;
+	/*border: 10px solid #eee;*/
+	
+	/*Transition*/
+	-webkit-transition: all 0.15s ease;
+	-moz-transition: all 0.15s ease;
+	-o-transition: all 0.15s ease;
+	
+	/*Reflection*/
+	/*-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.1)));*/
+
+	/*frame and shadow*/
+	border: 7px 
+	solid white; 
+	-webkit-box-shadow: rgb(0, 0, 0) 0px 4px 12px 0px; 
+	box-shadow: rgb(0, 0, 0) 0px 4px 12px 0px; 
+
+}
+
+
+#ex5firstrow img:hover {  
+   opacity: 1;
+   
+   /*Reflection*/
+  /*-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.4)));*/
+ 
+   /*Glow*/
+  -webkit-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+  -moz-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+  box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+}  
+
+#ex5secondrow {
+	width: 700px;
+	margin: 0 auto;
+	min-height: 300px;
+}
+
+#ex5secondrow img {
+	margin: -20px 25px 10px 25px;
+	opacity: 0.8;
+	/*border: 10px solid #eee;*/
+	
+	/*Transition*/
+	-webkit-transition: all 0.15s ease;
+	-moz-transition: all 0.15s ease;
+	-o-transition: all 0.15s ease;
+	
+	/*Reflection*/
+	/*-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.1)));*/
+
+	/*frame and shadow*/
+	border: 7px 
+	solid white; 
+	-webkit-box-shadow: rgb(0, 0, 0) 0px 4px 12px 0px; 
+	box-shadow: rgb(0, 0, 0) 0px 4px 12px 0px; 
+
+}
+
+
+#ex5secondrow img:hover {  
+   opacity: 1;
+   
+   /*Reflection*/
+  /*-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.4)));*/
+ 
+   /*Glow*/
+  -webkit-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+  -moz-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+  box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+}  
+
+
+/*Header*/
+#header {
+	font: 15px/30px Helvetica, sans-serif;
+	height: 30px;
+	background: #aaa;
+	color: white;
+	text-align: center;
+	margin: 0 0 15px 0;
+}
+
+#header a {
+	color: white;
+	text-decoration: none;
+}
+
+#header a:hover {
+	text-decoration: underline;
+}
+
+/* hovering twitter logo on top */
+.foo
+{
+   position: absolute;
+   top: 0;
+   right: 0;
+}
+
+.fboverlay
+{
+    background-image: url('https://si0.twimg.com/profile_images/1438634086/avatar_bigger.png');
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: 10px;
+    width: 10px;
+    height: 10px;
+}
+
+.spanClass {
+
+	height: 10px;
+	width: 164px;
+	margin-left: 25px;
+	margin-right: 25px;
+	text-align: center;
+	/*border: 1px white solid;*/
+	color:white;
+	margin-bottom: 20px;
+
+}
+
+.smallTitle{
+	margin-top: -100px;
+	color:white;
+	font: 15px/30px Helvetica, sans-serif;
+}
+
+
+.newButton {
+   border: 1px solid #0a3c59;
+   background: #3e779d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+   background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+   background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+   background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+   background: -o-linear-gradient(top, #65a9d7, #3e779d);
+   background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+   padding: 10.5px 21px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #7ea4bd 0 1px 0;
+   color: #06426c;
+   font-size: 14px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.newButton:hover {
+   border: 1px solid #0a3c59;
+   text-shadow: #1e4158 0 1px 0;
+   background: #3e779d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+   background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+   background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+   background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+   background: -o-linear-gradient(top, #65a9d7, #3e779d);
+   background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+   color: #fff;
+   }
+.newButton:active {
+   text-shadow: #1e4158 0 1px 0;
+   border: 1px solid #0a3c59;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#3e779d));
+   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   background-image: -ms-linear-gradient(top, #3e779d 0%, #65a9d7 100%);
+   color: #fff;
+   }
+
+.textButton {
+  font-size: 6pt;
+  cursor: hand;
+  cursor: pointer;
+}
+
+#totalTimeSaved {
+  font-size: 16pt;
+  color: green;
+}
+
+#underscoreSpace {
+  color:white;
+}
+
+body {
+  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
+
+.croppedImage { 
+          width: 150px; 
+          height: 150px; 
+
+          margin: 10px 25px 10px 25px;
+          opacity: 0.8;
+          /*border: 10px solid #eee;*/
+          
+          /*Transition*/
+          -webkit-transition: all 0.15s ease;
+          -moz-transition: all 0.15s ease;
+          -o-transition: all 0.15s ease;
+          
+          /*Reflection*/
+          /*-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.1)));*/
+
+          /*frame and shadow*/
+          border: 7px solid white !important; 
+          -webkit-box-shadow: rgb(0, 0, 0) 0px 4px 12px 0px !important; 
+          box-shadow: rgb(0, 0, 0) 0px 4px 12px 0px !important; 
+
+}
+
+.croppedImage:hover {  
+   opacity: 1;
+   
+   /*Reflection*/
+  /*-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.4)));*/
+ 
+   /*Glow*/
+  -webkit-box-shadow: 0px 0px 20px rgba(255,255,255,0.8) !important;
+  -moz-box-shadow: 0px 0px 20px rgba(255,255,255,0.8) !important;
+  box-shadow: 0px 0px 20px rgba(255,255,255,0.8) !important;
+}  
+
+  
